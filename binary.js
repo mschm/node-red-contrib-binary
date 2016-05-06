@@ -29,5 +29,5 @@ module.exports = function (RED) {
     })
   }
 
-  RED.nodes.registerType('Binary', BinaryNode)
+  RED.nodes.registerType('binary', BinaryNode)
 }
