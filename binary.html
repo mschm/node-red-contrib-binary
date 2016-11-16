@@ -12,10 +12,10 @@
 </script>
 
 <script type="text/x-red" data-help-name="binary">
-    <p>A function that takes the <b>msg.payload</b> and converts it to/from binary data. <b>Pattern</b> specifies the binary format.</p>
+    <p>A parser that takes the <code>msg.payload</code> and converts it to/from binary data. <b>Pattern</b> specifies the binary format.</p>
     <p>If the input is a buffer it tries to parse it and creates a javascript object.</p>
     <p>If the input is a javascript object it tries to serialize it and creates a buffer.</p>
-    <p>The pattern language is defined by the underlying module <a href="https://github.com/bigeasy/packet">packet</a>.</p>
+    <p>The pattern language is defined by the underlying <a href="https://github.com/bigeasy/packet#binary-pattern-fields" target="_new">packet</a> module.</p>
 </script>
 
 <script type="text/javascript">
