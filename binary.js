@@ -12,19 +12,18 @@ module.exports = function (RED) {
 
     // on input message
     this.on('input', function (msg) {
-      node.status({fill: 'yellow',shape: 'dot',text: 'processing'})
+      node.status({fill:'yellow', shape:'dot', text:'processing'})
       try {
         bin.handleInputEvent(msg)
-        node.status({fill: 'green',shape: 'dot',text: 'success'})
+        node.status({fill:'green', shape:'dot',text:'success'})
       } catch (e) {
-        node.error(e)
-        node.status({fill: 'red',shape: 'dot',text: e.message})
+        node.error(e,msg)
+        node.status({fill:'red', shape:'ring', text:e.message})
       }
     })
 
     // on close
     this.on('close', function () {
-      node.info('closing')
       bin.handleCloseEvent()
     })
   }
