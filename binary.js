@@ -1,32 +1,34 @@
-'use strict'
-/* global RED */
-module.exports = function (RED) {
-  var Binary = require('./lib/BinaryNode')(RED)
 
-  function BinaryNode (config) {
-    RED.nodes.createNode(this, config)
+module.exports = function(RED) {
+    "use strict";
+    var Binary = require('./lib/BinaryNode')(RED)
 
-    // initialize node
-    var bin = new Binary(this, config.pattern)
-    var node = this
+    function BinaryNode (config) {
+        RED.nodes.createNode(this, config)
 
-    // on input message
-    this.on('input', function (msg) {
-      node.status({fill:'yellow', shape:'dot', text:'processing'})
-      try {
-        bin.handleInputEvent(msg)
-        node.status({fill:'green', shape:'dot',text:'success'})
-      } catch (e) {
-        node.error(e,msg)
-        node.status({fill:'red', shape:'ring', text:e.message})
-      }
-    })
+        // initialize node
+        this.property = config.property || "payload";
+        this.pattern = config.pattern;
+        var bin = new Binary(this, config.pattern)
+        var node = this;
 
-    // on close
-    this.on('close', function () {
-      bin.handleCloseEvent()
-    })
-  }
+        // on input message
+        this.on('input', function (msg) {
+            node.status({fill:'yellow', shape:'dot', text:'processing'})
+            try {
+                bin.handleInputEvent(msg)
+                node.status({fill:'green', shape:'dot',text:'success'})
+            } catch (e) {
+                node.error(e,msg)
+                node.status({fill:'red', shape:'ring', text:e.message})
+            }
+        })
 
-  RED.nodes.registerType('binary', BinaryNode)
+        // on close
+        this.on('close', function () {
+            bin.handleCloseEvent()
+        })
+    }
+
+    RED.nodes.registerType('binary', BinaryNode)
 }
